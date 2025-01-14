@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="icon" href="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utility.css">
+</head>
+
+<body>
+    <div class="left">
+        <div class="home p-1 rounded base-colour flex-c">
+            <ul>
+                <li style="gap: 5px;">
+                    <a target="_blank" href="https://open.spotify.com/">
+                        <img class="inverted" style="height: 28px;" src="SVGs/logo.svg" alt="Spotify-logo">
+                    </a>
+                    <small style="user-select: none; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> - Clone</small>
+                </li>
+                <img class="close pointer" src="SVGs/close.svg" alt="Close">
+                <li><img class="inverted pointer" src="SVGs/home.svg" alt="Home"><span class="pointer">Home</span></li>
+                <li style="color: #B3B3B3;"><img class="inactive pointer" src="SVGs/search.svg" alt="Search"><span
+                        class="pointer">Search</span></li>
+            </ul>
+        </div>
+
+        <div class="library p-1 rounded base-colour flex-c">
+            <ul class="flex-r align-item justify-space">
+                <li style="gap: 10px; color: #B3B3B3;"><img class="inactive" src="SVGs/library.svg" alt="Libraries">Your
+                    Library</li>
+                <img class="queuebtn p-1 pointer inverted" src="SVGs/queue.svg" alt="queue">
+            </ul>
+            <div class="flex-r p-1 align-center">
+                <span class="folderName inverted primary-font">
+                    <!-- - folder name - -->
+                </span>
+                <div id="toggleAutoPlay" style="display: none; width: fit-content;">
+                    <div class="autoPlay">
+                        <label class="pointer" for="autoPlayBtn"><img id="autoPlayBtn" src="SVGs/pausebtn.svg"
+                                alt=""></label>
+                        <input id="autoPlayBtn" style="display: none;" type="checkbox"></input>
+                    </div>
+                </div>
+            </div>
+            <div class="songlist">
+                <ul>
+                    <!--SongUl -->
+                </ul>
+            </div>
+
+            <div class="queuelist">
+                <ul>
+                    <!--QueueUl -->
+                </ul>
+            </div>
+
+            <div class="likedlist">
+                <ul>
+                    <!--likeUL -->
+                </ul>
+            </div>
+
+            <div class="footer flex-r base-colour">
+                <div><a href="https://www.spotify.com/in-en/legal/"><span>Legal</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/safetyandprivacy/"><span>Safety &amp; Privacy
+                            Center</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/"><span>Privacy Policy</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/cookies-policy/"><span>Cookies</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/accessibility/"><span>Accessibility</span></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right rounded base-colour">
+
+        <div class="header flex-r justify-space">
+            <div class="nav flex-r">
+                <img class="hamburger pointer" src="SVGs/hamburger.svg" alt="Menu">
+                <img class="navbtn pointer" src="SVGs/left.svg" alt="nav left">
+                <img class="navbtn pointer" src="SVGs/right.svg" alt="nav right">
+
+            </div>
+            <div class="account flex-r">
+                <button class="signupbtn accbtn pointer">Sign up</button>
+                <button class="loginbtn accbtn pointer">Log in</button>
+            </div>
+        </div>
+
+        <div class="spotifyPlaylist">
+
+            <h2 class="listenAgain m-0 primary-font inverted p-1"></h2>
+
+            <ul class="recentlyPlayed primary-font p-1">
+                <!--------- recent songs ----------->
+            </ul>
+
+            <h2 class="m-0 primary-font inverted p-1">Spotify Playlists</h2>
+            <div class="cardContainer">
+                <!--cards -->
+
+                <!-- display cards -->
+                <div data-folder="Liked songs" id="likedSongsAlbum" class="card">
+                    <div class="albumImage">
+                        <img class="poster" src="	https://misc.scdn.co/liked-songs/liked-songs-300.png" alt="">
+                        <img class="playButton" src="SVGs/playbtn.svg" alt="playButton">
+                    </div>
+                    <h3 class="m-0">Liked songs</h3>
+                    <p class="m-0">All your favourite songs start here.</p>
+                </div>
+
+                <div data-folder="Sad Songs" class="card">
+                    <img class="poster" src="https://i.scdn.co/image/ab67616d00001e02d0544ef8fda0264f48ee1751" alt="">
+                    <img class="playButton" src="SVGs/playbtn.svg" alt="playButton">
+                    <h3 class="m-0">Sad Songs</h3>
+                    <p class="m-0">Echoes of melancholy in every note.</p>
+                </div>
+                <div data-folder="Pop" class="card">
+                    <img class="poster" src="https://thisis-images.spotifycdn.com/37i9dQZF1DZ06evO04kFZs-default.jpg"
+                        alt="">
+                    <img class="playButton" src="SVGs/playbtn.svg" alt="playButton">
+                    <h3 class="m-0">Pop</h3>
+                    <p class="m-0">Pop melodies for every heartbeat.</p>
+                </div>
+                <div data-folder="Bon-Voyage" class="card">
+                    <img class="poster"
+                        src="https://seeded-session-images.scdn.co/v2/img/122/secondary/track/0wedgCpvgK8SrNGCCgpMYc/en-GB"
+                        alt="">
+                    <img class="playButton" src="SVGs/playbtn.svg" alt="playButton">
+                    <h3 class="m-0">Bon-Voyage</h3>
+                    <p class="m-0">Drive into the rhythm of the night.</p>
+                </div>
+                <div data-folder="Telugu trending" class="card">
+                    <img class="poster" src="https://i.scdn.co/image/ab67706f00000002344bde7ee069f45b6da72653" alt="">
+                    <img class="playButton" src="SVGs/playbtn.svg" alt="playButton">
+                    <h3 class="m-0">Telugu trending</h3>
+                    <p class="m-0">Telugu tunes taking the charts by storm.</p>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="playBar align-center flex justify-space primary-font m-0">
+            <div class="abovebar align-center flex justify-space primary-font m-0 w-100">
+                <div class="songinfo flex-r">
+                    <!--song name -->
+                </div>
+                <div class="songbtn flex-r justify-center">
+                    <img id="previous" src="SVGs/prev.svg" alt="Prev">
+                    <img id="play" src="SVGs/play.svg" alt="Play">
+                    <img id="next" src="SVGs/next.svg" alt="Next">
+                </div>
+
+                <div class="timevol">
+
+                    <div class="songtime flex-r">
+                        <!--song time -->
+                    </div>
+                    <div class="volume">
+                        <img src="SVGs/volume.svg" alt="volume">
+                        <input type="range" value="40" name="volume">
+                    </div>
+                </div>
+
+            </div>
+            <div class="seekbar">
+                <div class="circle">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
