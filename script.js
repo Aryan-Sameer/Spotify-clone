@@ -13,7 +13,7 @@ let recentlyPlayed = JSON.parse(localStorage.getItem("recently played")) || []
 
 let likedSongs = JSON.parse(localStorage.getItem("liked songs")) || []
 
-async function getSongs(folder) {
+const getSongs = async (folder) => {
     currFolder = folder
     let a = await fetch(`/${currFolder}`)
     let response = await a.text()
@@ -262,7 +262,7 @@ const addRecentlyPlayed = () => {
     })
 }
 
-async function displayAlbums() {
+const displayAlbums = async () => {
     let a = await fetch(`/songs/`)
     let response = await a.text()
     let div = document.createElement('div')
@@ -309,114 +309,109 @@ async function displayAlbums() {
 
 }
 
-async function controls() {
-    
-    displayAlbums()
-    addRecentlyPlayed()
+displayAlbums()
+addRecentlyPlayed()
 
-    document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
-    document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
+document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
+document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
 
-    currentSong.addEventListener("timeupdate", () => {
-        document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font">${convertSecondsToMinutes(currentSong.currentTime)} / ${convertSecondsToMinutes(currentSong.duration)}</p>`
-        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
-        if (document.querySelector(".circle").style.left == "100%") {
-            let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-            document.querySelector(".circle").style.left = "0%"
-            play.src = "SVGs/play.svg"
-            document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
-            if (queue.length != 0 && queueIndex < queue.length - 1 && autoPlay) {
-                queueIndex += 1
-                playMusic()
-            }
-            if ((index < songs.length - 1) && (autoPlay)) {
-                playMusic(`/${currFolder}/` + songs[index + 1])
-                play.src = "SVGs/pause.svg"
-            }
-
-        }
-    })
-
-    document.querySelector(".seekbar").addEventListener("click", e => {
-        let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100
-        if (percent > 0) {
-            document.querySelector(".circle").style.left = percent + "%"
-        }
-        currentSong.currentTime = ((currentSong.duration) * percent) / 100
-    })
-
-    play.addEventListener("click", () => {
-        if (currentSong.paused) {
-            currentSong.play()
-            play.src = "SVGs/pause.svg"
-        }
-        else {
-            currentSong.pause()
-            play.src = "SVGs/play.svg"
-        }
-    })
-
-    previous.addEventListener("click", () => {
-        currentSong.pause()
+currentSong.addEventListener("timeupdate", () => {
+    document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font">${convertSecondsToMinutes(currentSong.currentTime)} / ${convertSecondsToMinutes(currentSong.duration)}</p>`
+    document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+    if (document.querySelector(".circle").style.left == "100%") {
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        if (queue.length != 0 && queueIndex > 0) {
-            queueIndex -= 1
-            playMusic()
-        }
-        else if (index > 0) {
-            playMusic(`/${currFolder}/` + songs[index - 1])
-        }
-    })
-
-    next.addEventListener("click", () => {
-        currentSong.pause()
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        if (queue.length != 0 && queueIndex < queue.length - 1) {
+        document.querySelector(".circle").style.left = "0%"
+        play.src = "SVGs/play.svg"
+        document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
+        if (queue.length != 0 && queueIndex < queue.length - 1 && autoPlay) {
             queueIndex += 1
             playMusic()
         }
-        else if (index < songs.length - 1) {
+        if ((index < songs.length - 1) && (autoPlay)) {
             playMusic(`/${currFolder}/` + songs[index + 1])
+            play.src = "SVGs/pause.svg"
         }
-    })
 
-    let autoPlayBtn = document.getElementById("autoPlayBtn")
-    autoPlayBtn.addEventListener("click", () => {
-        autoPlayBtn.toggleAttribute("checked")
-        if (autoPlayBtn.hasAttribute("checked")) {
-            autoPlay = true
-            autoPlayBtn.style.margin = "0px 0px 0px 20px"
-            autoPlayBtn.src = "SVGs/playbtn.svg"
-        }
-        else {
-            autoPlay = false
-            autoPlayBtn.style.margin = "0px 0px 20px 0px"
-            autoPlayBtn.src = "SVGs/pausebtn.svg"
-        }
-    })
+    }
+})
 
-    document.querySelector(".volume").getElementsByTagName("input")[0].addEventListener("change", e => {
-        currentSong.volume = parseInt(e.target.value) / 100
-        if (currentSong.volume > 0) {
-            document.querySelector(".volume>img").src = "SVGs/volume.svg"
-        }
-        if (currentSong.volume == 0) {
-            document.querySelector(".volume>img").src = "SVGs/mute.svg"
-        }
-    })
+document.querySelector(".seekbar").addEventListener("click", e => {
+    let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100
+    if (percent > 0) {
+        document.querySelector(".circle").style.left = percent + "%"
+    }
+    currentSong.currentTime = ((currentSong.duration) * percent) / 100
+})
 
-    document.querySelector(".volume>img").addEventListener("click", e => {
-        if (currentSong.volume > 0) {
-            (e.target.src = "SVGs/mute.svg")
-            currentSong.volume = 0
-            document.querySelector(".volume>input").value = 0
-        }
-        else {
-            (e.target.src = "SVGs/volume.svg")
-            currentSong.volume = 0.1
-            document.querySelector(".volume>input").value = "10"
-        }
-    })
+play.addEventListener("click", () => {
+    if (currentSong.paused) {
+        currentSong.play()
+        play.src = "SVGs/pause.svg"
+    }
+    else {
+        currentSong.pause()
+        play.src = "SVGs/play.svg"
+    }
+})
 
-}
-controls()
+previous.addEventListener("click", () => {
+    currentSong.pause()
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+    if (queue.length != 0 && queueIndex > 0) {
+        queueIndex -= 1
+        playMusic()
+    }
+    else if (index > 0) {
+        playMusic(`/${currFolder}/` + songs[index - 1])
+    }
+})
+
+next.addEventListener("click", () => {
+    currentSong.pause()
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+    if (queue.length != 0 && queueIndex < queue.length - 1) {
+        queueIndex += 1
+        playMusic()
+    }
+    else if (index < songs.length - 1) {
+        playMusic(`/${currFolder}/` + songs[index + 1])
+    }
+})
+
+let autoPlayBtn = document.getElementById("autoPlayBtn")
+autoPlayBtn.addEventListener("click", () => {
+    autoPlayBtn.toggleAttribute("checked")
+    if (autoPlayBtn.hasAttribute("checked")) {
+        autoPlay = true
+        autoPlayBtn.style.margin = "0px 0px 0px 20px"
+        autoPlayBtn.src = "SVGs/playbtn.svg"
+    }
+    else {
+        autoPlay = false
+        autoPlayBtn.style.margin = "0px 0px 20px 0px"
+        autoPlayBtn.src = "SVGs/pausebtn.svg"
+    }
+})
+
+document.querySelector(".volume").getElementsByTagName("input")[0].addEventListener("change", e => {
+    currentSong.volume = parseInt(e.target.value) / 100
+    if (currentSong.volume > 0) {
+        document.querySelector(".volume>img").src = "SVGs/volume.svg"
+    }
+    if (currentSong.volume == 0) {
+        document.querySelector(".volume>img").src = "SVGs/mute.svg"
+    }
+})
+
+document.querySelector(".volume>img").addEventListener("click", e => {
+    if (currentSong.volume > 0) {
+        (e.target.src = "SVGs/mute.svg")
+        currentSong.volume = 0
+        document.querySelector(".volume>input").value = 0
+    }
+    else {
+        (e.target.src = "SVGs/volume.svg")
+        currentSong.volume = 0.1
+        document.querySelector(".volume>input").value = "10"
+    }
+})
