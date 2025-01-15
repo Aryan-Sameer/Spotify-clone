@@ -46,10 +46,8 @@ export const convertSecondsToMinutes = (seconds) => {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-let autoPlay = false
-export const setAutoPlay = (play) => {
-    play ? autoPlay = true : autoPlay = false
-}
+document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
+document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
 
 document.querySelector(".queuebtn").addEventListener("click", () => {
     showQueueList(true)

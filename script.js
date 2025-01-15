@@ -14,6 +14,8 @@ let recentlyPlayed = JSON.parse(localStorage.getItem("recently played")) || []
 
 let likedSongs = JSON.parse(localStorage.getItem("liked songs")) || []
 
+let autoPlayBtn = document.getElementById("autoPlayBtn")
+
 const getSongs = async (folder) => {
     currFolder = folder
     let a = await fetch(`/${currFolder}`)
@@ -312,9 +314,6 @@ const displayAlbums = async () => {
 displayAlbums()
 addRecentlyPlayed()
 
-document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
-document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
-
 currentSong.addEventListener("timeupdate", () => {
     document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font">${convertSecondsToMinutes(currentSong.currentTime)} / ${convertSecondsToMinutes(currentSong.duration)}</p>`
     document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
@@ -378,7 +377,6 @@ next.addEventListener("click", () => {
     }
 })
 
-let autoPlayBtn = document.getElementById("autoPlayBtn")
 autoPlayBtn.addEventListener("click", () => {
     autoPlayBtn.toggleAttribute("checked")
     if (autoPlayBtn.hasAttribute("checked")) {
