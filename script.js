@@ -308,10 +308,10 @@ async function displayAlbums() {
     })
 
 }
-displayAlbums()
 
 async function controls() {
-
+    
+    displayAlbums()
     addRecentlyPlayed()
 
     document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
