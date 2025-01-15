@@ -11,7 +11,6 @@ let queue = []
 
 let recentlyPlayed = JSON.parse(localStorage.getItem("recently played")) || []
 
-let fromLikedSOngs = false
 let likedSongs = JSON.parse(localStorage.getItem("liked songs")) || []
 
 async function getSongs(folder) {
