@@ -9,6 +9,7 @@ let fromQueue = false
 let queueIndex = 0
 let queue = []
 
+let fromRecent = false
 let recentlyPlayed = JSON.parse(localStorage.getItem("recently played")) || []
 
 let likedSongs = JSON.parse(localStorage.getItem("liked songs")) || []
@@ -196,7 +197,7 @@ const addQueue = (track) => {
 }
 
 const playMusic = (track) => {
-    if (queue.length != 0 && fromQueue) {
+    if (queue.length != 0 && fromQueue && !fromRecent) {
         currentSong.src = queue[queueIndex]
         track = queue[queueIndex]
     }
@@ -255,9 +256,8 @@ const addRecentlyPlayed = () => {
 
     Array.from(recentUL.getElementsByTagName("li")).forEach((e, index) => {
         e.children[1].addEventListener("click", () => {
-            if (e.children[0].children[1].children[0].innerHTML != "undefined") {
-                playMusic(recentlyPlayed[index] + ".mp3".trim())
-            }
+            fromRecent = true
+            playMusic(recentlyPlayed[index] + ".mp3".trim())
         })
     })
 }
