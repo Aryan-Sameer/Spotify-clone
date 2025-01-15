@@ -230,12 +230,12 @@ const playMusic = (track) => {
             recentlyPlayed.pop()
         }
         localStorage.setItem("recently played", JSON.stringify(recentlyPlayed))
-        addRecentlyPlayed()
+        displayRecentlyPlayed()
     }
 
 }
 
-const addRecentlyPlayed = () => {
+const displayRecentlyPlayed = () => {
 
     let recentUL = document.querySelector(".recentlyPlayed")
     recentUL.innerHTML = ""
@@ -312,7 +312,7 @@ const displayAlbums = async () => {
 }
 
 displayAlbums()
-addRecentlyPlayed()
+displayRecentlyPlayed()
 
 currentSong.addEventListener("timeupdate", () => {
     document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font">${convertSecondsToMinutes(currentSong.currentTime)} / ${convertSecondsToMinutes(currentSong.duration)}</p>`
