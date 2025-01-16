@@ -8,6 +8,7 @@ const showQueueList = (showElement) => {
     } else {
         document.querySelector(".queuelist").style.display = "none"
         document.getElementById("toggleAutoPlay").style.display = "none"
+        document.querySelector(".folderName").innerHTML = ""
     }
 }
 
@@ -19,8 +20,9 @@ export const showSongList = (showElement) => {
 
         document.getElementById("toggleAutoPlay").style.display = "inline-block"
     } else {
-        document.getElementById("toggleAutoPlay").style.display = "none"
         document.querySelector(".songlist").style.display = "none"
+        document.getElementById("toggleAutoPlay").style.display = "none"
+        document.querySelector(".folderName").innerHTML = ""
     }
 }
 
@@ -34,6 +36,7 @@ export const showLikedSongsList = (showElement) => {
     } else {
         document.querySelector(".likedlist").style.display = "none"
         document.getElementById("toggleAutoPlay").style.display = "none"
+        document.querySelector(".folderName").innerHTML = ""
     }
 }
 
@@ -48,6 +51,14 @@ export const convertSecondsToMinutes = (seconds) => {
 
 document.querySelector(".songinfo").innerHTML = `<p class="self-center inverted m-0 primary-font"> - Song 404 - </p>`
 document.querySelector(".songtime").innerHTML = `<p class="self-center inverted m-0 primary-font"> 00:00 / 00:00 </p>`
+
+document.addEventListener("keydown", (e) => {
+    if (e.key == "Escape") {
+        showLikedSongsList(false)
+        showQueueList(false)
+        showSongList(false)
+    }
+})
 
 document.querySelector(".queuebtn").addEventListener("click", () => {
     showQueueList(true)
