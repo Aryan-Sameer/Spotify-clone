@@ -429,6 +429,11 @@ h2 {
 }
 
 @media (max-width: 695px) {
+
+    .home ul li {
+        padding: 8px 11px;
+    }
+
     .left {
         width: 100svw;
         height: 100svh;
