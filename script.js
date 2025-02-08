@@ -256,6 +256,9 @@ const displayRecentlyPlayed = () => {
             </li>`
     }
 
+    let recentPlay = JSON.parse(localStorage.getItem("recently played")) || []
+    recentPlay.length !== 0 ? document.querySelector(".listenAgain").innerHTML = "Listen Again" : ""
+
     Array.from(recentUL.getElementsByTagName("li")).forEach((e, index) => {
         e.children[1].addEventListener("click", () => {
             fromRecent = true

@@ -71,6 +71,3 @@ document.querySelector(".hamburger").addEventListener("click", () => {
 document.querySelector(".close").addEventListener("click", () => {
     document.querySelector(".left").style.left = "-110%"
 })
-
-let recentlyPlayed = JSON.parse(localStorage.getItem("recently played")) || []
-recentlyPlayed.length !== 0 ? document.querySelector(".listenAgain").innerHTML = "Listen Again" : ""

@@ -139,6 +139,7 @@ h2 {
 
 .recentlyPlayed {
     margin: 0;
+    padding: 0px 14px;
     display: grid;
     height: min-content;
     grid-template-columns: 1fr 1fr 1fr 1fr;
